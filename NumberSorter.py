@@ -3,11 +3,35 @@
 # Print the 4 numbers from highest to lowest using only if-else statement.
 
 def Usr_Input():
-    Num_01 = int(input("Enter first number: "))
-    Num_02 = int(input("Enter second number: "))
-    Num_03 = int(input("Enter third number: "))
-    Num_04 = int(input("Enter fourth number: "))
-    return Num_01, Num_02, Num_03, Num_04
+    while True:
+        Num_01 = input("Enter \x1B[1mfirst\x1B[0m number: ")
+        Ev_Num_01= CommaReader_Single(Num_01)
+        if Ev_Num_01.replace(".","").replace("-","").isdecimal() == True:
+            Num_02 = input("Enter \x1B[1msecond\x1B[0m number: ")
+            Ev_Num_02= CommaReader_Single(Num_02)
+            if Ev_Num_02.replace(".","").replace("-","").isdecimal() == True:
+                Num_03 = input("Enter \x1B[1mthird\x1B[0m number: ")
+                Ev_Num_03= CommaReader_Single(Num_03)
+                if Ev_Num_03.replace(".","").replace("-","").isdecimal() == True:
+                    Num_04 = input("Enter \x1B[1mfourth\x1B[0m number: ")
+                    Ev_Num_04= CommaReader_Single(Num_04)
+                    if Ev_Num_04.replace(".","").replace("-","").isdecimal() == True:
+                        return Ev_Num_01, Ev_Num_02, Ev_Num_03, Ev_Num_04
+                    else:
+                        print() #Validation Statements
+                else:
+                    print()
+            else:   
+                print()         
+        else:
+            print() 
+
+def CommaReader_Single(StringVal): #Remodeled version of previous CommaReader code block.
+    if "," in StringVal:
+        CommaOmmi = StringVal.replace(",","")
+        return CommaOmmi
+    else:
+        return StringVal
 
 def PrimaryFilter(firstNum, secondNum, thirdNum, fourthNum): #Function for determining the highest value.
     if (firstNum > secondNum) and (firstNum > thirdNum) and (firstNum > fourthNum):
@@ -36,7 +60,7 @@ def TertiaryFilter(Remain_11, Remain_22): #Function for comparing the remaining 
         return Remain_22, Remain_11
 
 FNum, SNum, TNum, FtNum = Usr_Input()
-HighestOutput, Re_01, Re_02, Re_03 = PrimaryFilter(FNum, SNum, TNum, FtNum)
+HighestOutput, Re_01, Re_02, Re_03 = PrimaryFilter(float(FNum), float(SNum), float(TNum), float(FtNum))
 SecondHighest, Re_11, Re_22 = SecondaryFilter(Re_01, Re_02, Re_03)
 ThirdHighest, LowestOutput = TertiaryFilter(Re_11, Re_22)
 print(f"{HighestOutput}, {SecondHighest}, {ThirdHighest}, {LowestOutput}")
