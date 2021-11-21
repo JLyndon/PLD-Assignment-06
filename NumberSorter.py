@@ -9,7 +9,7 @@ def Usr_Input():
     Num_04 = int(input("Enter fourth number: "))
     return Num_01, Num_02, Num_03, Num_04
 
-def PrimaryFilter(firstNum, secondNum, thirdNum, fourthNum):
+def PrimaryFilter(firstNum, secondNum, thirdNum, fourthNum): #Function for determining the highest value.
     if (firstNum > secondNum) and (firstNum > thirdNum) and (firstNum > fourthNum):
         return firstNum, secondNum, thirdNum, fourthNum
     elif (secondNum > firstNum) and (secondNum > thirdNum) and (secondNum > fourthNum):
@@ -21,7 +21,7 @@ def PrimaryFilter(firstNum, secondNum, thirdNum, fourthNum):
     else:
         print() #Insert conditions for secondary screening of inputs.
 
-def SecondaryFilter(Remain_01, Remain_02, Remain_03):
+def SecondaryFilter(Remain_01, Remain_02, Remain_03): #Function for determining second highest value.
     if (Remain_01 > Remain_02) and (Remain_01 > Remain_03):
         return Remain_01, Remain_02, Remain_03
     elif (Remain_02 > Remain_01) and (Remain_02 > Remain_03):
@@ -29,9 +29,14 @@ def SecondaryFilter(Remain_01, Remain_02, Remain_03):
     elif (Remain_03 > Remain_01) and (Remain_03 > Remain_02):
         return Remain_03, Remain_01, Remain_02
 
+def TertiaryFilter(Remain_11, Remain_22): #Function for comparing the remaining 2 
+    if Remain_11 > Remain_22:
+        return Remain_11, Remain_22
+    elif Remain_22 > Remain_11:
+        return Remain_22, Remain_11
+
 FNum, SNum, TNum, FtNum = Usr_Input()
 HighestOutput, Re_01, Re_02, Re_03 = PrimaryFilter(FNum, SNum, TNum, FtNum)
 SecondHighest, Re_11, Re_22 = SecondaryFilter(Re_01, Re_02, Re_03)
-
-FirstTwoHigh = HighestOutput, SecondHighest
-print(FirstTwoHigh)
+ThirdHighest, LowestOutput = TertiaryFilter(Re_11, Re_22)
+print(f"{HighestOutput}, {SecondHighest}, {ThirdHighest}, {LowestOutput}")
