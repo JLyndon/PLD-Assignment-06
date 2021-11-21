@@ -6,32 +6,42 @@ def Usr_Input():
     while True:
         Num_01 = input("Enter \x1B[1mfirst\x1B[0m number: ")
         Ev_Num_01= CommaReader_Single(Num_01)
-        if Ev_Num_01.replace(".","").replace("-","").isdecimal() == True:
+        if (Ev_Num_01.replace(".","",1).replace("-","",1).isdecimal()) == True:
             Num_02 = input("Enter \x1B[1msecond\x1B[0m number: ")
             Ev_Num_02= CommaReader_Single(Num_02)
-            if Ev_Num_02.replace(".","").replace("-","").isdecimal() == True:
+            if Ev_Num_02.replace(".","",1).replace("-","",1).isdecimal() == True:
                 Num_03 = input("Enter \x1B[1mthird\x1B[0m number: ")
                 Ev_Num_03= CommaReader_Single(Num_03)
-                if Ev_Num_03.replace(".","").replace("-","").isdecimal() == True:
+                if Ev_Num_03.replace(".","",1).replace("-","",1).isdecimal() == True:
                     Num_04 = input("Enter \x1B[1mfourth\x1B[0m number: ")
                     Ev_Num_04= CommaReader_Single(Num_04)
-                    if Ev_Num_04.replace(".","").replace("-","").isdecimal() == True:
+                    if Ev_Num_04.replace(".","",1).replace("-","",1).isdecimal() == True:
                         return Ev_Num_01, Ev_Num_02, Ev_Num_03, Ev_Num_04
                     else:
-                        print() #Validation Statements
+                        ValidationState(Ev_Num_04) #Validation Statements
                 else:
-                    print()
+                    ValidationState(Ev_Num_03)
             else:   
-                print()         
+                ValidationState(Ev_Num_02)         
         else:
-            print() 
+            ValidationState(Ev_Num_01) 
 
-def CommaReader_Single(StringVal): #Remodeled version of previous CommaReader code block.
+def CommaReader_Single(StringVal): #Duplicate of CommaReader code block from previous exer.
     if "," in StringVal:
         CommaOmmi = StringVal.replace(",","")
         return CommaOmmi
     else:
         return StringVal
+
+def ValidationState(StrEvaluee):
+    if StrEvaluee.isalpha() == True:
+        return print("Input must be a number!")
+    elif (StrEvaluee.isspace()) or (StrEvaluee == (None or "")) == True:
+        return print("This field must have an input to proceed.")
+    elif StrEvaluee.isalnum() == True:
+        return print("Input must be all numeric character!")
+    else:
+        print("Please enter a valid number.")
 
 def PrimaryFilter(firstNum, secondNum, thirdNum, fourthNum): #Function for determining the highest value.
     if (firstNum > secondNum) and (firstNum > thirdNum) and (firstNum > fourthNum):
