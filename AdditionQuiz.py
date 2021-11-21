@@ -10,7 +10,7 @@ def RandNumPicker():
     randNum_01 = random.randint(0,99)
     randNum_02 = random.randint(0,99)
     print(f"\n\nWhat is {randNum_01} + {randNum_02} = ?")
-    Usr_Answer = input("\nPlace your answer here.\n> ")
+    Usr_Answer = input("\nYour answer, here.\n> ")
     if Usr_Answer.isdigit() == True:
         if int(Usr_Answer) == (randNum_01 + randNum_02):
             return "correct"
@@ -22,6 +22,60 @@ def RandNumPicker():
 Usr_Score = 0
 Item_01 = RandNumPicker()
 if Item_01 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_02 = RandNumPicker()
+if Item_02 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_03 = RandNumPicker()
+if Item_03 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_04 = RandNumPicker()
+if Item_04 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_05 = RandNumPicker()
+if Item_05 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_06 = RandNumPicker()
+if Item_06 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_07 = RandNumPicker()
+if Item_07 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_08 = RandNumPicker()
+if Item_08 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_09 = RandNumPicker()
+if Item_09 == "correct":
+    Usr_Score += 1
+else:
+    None
+
+Item_10 = RandNumPicker()
+if Item_10 == "correct":
     Usr_Score += 1
 else:
     None
