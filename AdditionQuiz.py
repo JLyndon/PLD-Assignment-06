@@ -9,12 +9,21 @@ import random
 def RandNumPicker():
     randNum_01 = random.randint(0,99)
     randNum_02 = random.randint(0,99)
-    return randNum_01, randNum_02
+    print(f"\n\nWhat is {randNum_01} + {randNum_02} = ?")
+    Usr_Answer = input("\nPlace your answer here.\n> ")
+    if Usr_Answer.isdigit() == True:
+        if int(Usr_Answer) == (randNum_01 + randNum_02):
+            return "correct"
+        else:
+            return "wrong"
+    else:
+        return "wrong"
 
-FNum, SNum = RandNumPicker()
-print(f"What is {FNum} + {SNum} = ?")
-Usr_Answer = int(input("\nPlace your answer here.\n> "))
-if Usr_Answer == (FNum + SNum):
-    print("Correct!")
+Usr_Score = 0
+Item_01 = RandNumPicker()
+if Item_01 == "correct":
+    Usr_Score += 1
 else:
     None
+
+print(f"\nYour score: {Usr_Score}/10")
