@@ -37,13 +37,16 @@ def CommaReader_Single(StringVal): #Duplicate of CommaReader code block from pre
     else:
         return StringVal
 
-def ValidationState(StrEvaluee):
+def ValidationState(StrEvaluee): #Second Layer of Validation - Displays a Reminder if the input is invalid.
     if StrEvaluee.isalpha() == True:
         return print("Input must be a number!")
     elif (StrEvaluee.isspace()) or (StrEvaluee == (None or "")) == True:
         return print("This field must have an input to proceed.")
-    elif StrEvaluee.replace(".","").replace("-","").isalnum() == True:
-        return print("Input must be all numeric character!")
+    elif StrEvaluee.replace(".","",1).replace("-","",1).isalnum() == True:
+        if StrEvaluee[0] == "-":
+            return print("Input must be all numeric character!")
+        else:
+            print("Signs must be on the left side!")
     elif " " in StrEvaluee:
         print("Inputs must not have a space!")
     else:
@@ -73,7 +76,7 @@ def TertiaryFilter(Remain_11, Remain_22): #Function for comparing the remaining 
     elif Remain_22 >= Remain_11:
         return Remain_22, Remain_11
 
-def IntorFlt(EvalNum):
+def IntorFlt(EvalNum): # Converts String into either Float or Int Val depending on their decimal value.
     Number = str(EvalNum)
     if "." not in Number:
         return int(Number)
@@ -84,59 +87,57 @@ def IntorFlt(EvalNum):
         elif int(SignificantVal_Dec) == 0:
             return int(WholeNum)
 
-def DisregardNegativeDecim(StrEvaluee_01):
-    return StrEvaluee_01.replace(".","").replace("-","")
+def DisregardNegativeDecim(StrEvaluee_01): #Function for disregarding Negative Sign and Decimal Points for Evaluation.
+    return StrEvaluee_01.replace(".","",1).replace("-","",1)
 
-def DisregardListChar(StrEvaluee_02):
-    return StrEvaluee_02.replace("'","").replace("[","").replace("]","").replace(",","")
+def DisregardListChar(StrEvaluee_02): #Function to disregard additional characters in list.
+    return StrEvaluee_02.replace("'","").replace("[","").replace("]","").replace(",","") 
 
 def SecuringNegativ(ConflictStr): #Function for Initial Screening - Checks for eligibility of input. 
-    if ConflictStr.isdigit() == True:
-        return True
-    elif DisregardNegativeDecim(ConflictStr).isalpha() == True:
-        return False
-    elif DisregardNegativeDecim(ConflictStr).isalnum() == True:
-        Alt_Conflict = str(sorted(ConflictStr))
-        for i in Alt_Conflict:
-            if i.isalpha() == True:
-                Mixed_alpha, Mixed_num = Alt_Conflict.split(i,1)
-                break
-        if (DisregardListChar(DisregardNegativeDecim(Mixed_alpha)).isalpha() == True) and (DisregardListChar(DisregardNegativeDecim(Mixed_num)).isdigit() == True):
-            return False #CHECKPOINT - Error Occurs, Will Fix
-    else:
-        if "-" or "." in ConflictStr: #Check strings with negative values and decimal points.
+    if "-" or "." in ConflictStr: #Check strings with negative values and decimal points.
+        if (ConflictStr.count("-")) > 1:
+            return False
+        elif (ConflictStr.count(".")) > 1:
+            return False
+        else:
             if "-" in ConflictStr:
                 if ConflictStr[0] == " ":
                     for i in ConflictStr:
                         if i != " ":
                             if i != "-":
-                                    return False
+                                return False
                             elif i == "-":
                                 if " " in ConflictStr:
                                     return False
-                                else:
-                                    return True
                 elif ConflictStr[0] == "-":
                     if " " in ConflictStr:
                         return False
-                    else:
-                        return True
-                elif "." in ConflictStr:
-                    if (ConflictStr.count(".")) > 1:
+                    elif (ConflictStr[0] == "-") and (len(ConflictStr) == 1):
                         return False
-                    else:
-                        return True
                 else:
                     return False
-            elif "." in ConflictStr:
-                if (ConflictStr.count(".")) > 1:
-                    return False
-                else:
-                    return True
 
+    if (DisregardListChar(DisregardNegativeDecim(ConflictStr)).isdigit()) == True:
+        return True
+    elif DisregardNegativeDecim(ConflictStr).isalpha() == True:
+        return False
+    elif DisregardNegativeDecim(ConflictStr).isalnum() == True:
+        Alt_Conflict = list(sorted(ConflictStr))
+        for i in Alt_Conflict:
+            if i.isalpha() == True:
+                position = int(Alt_Conflict.index(i))
+                Alt_Conflict.insert(position,"s")
+                ReadyConflict= str(Alt_Conflict)
+                Mixed_num, Mixed_alpha = ReadyConflict.split("s",1)
+                break
+        if (DisregardListChar(DisregardNegativeDecim(Mixed_alpha)).isalpha() == True) and (DisregardListChar(DisregardNegativeDecim(Mixed_num)).isdigit() == True):
+            return False # Error Fixed
+
+#Main Program
 FNum, SNum, TNum, FtNum = Usr_Input()
 HighestOutput, Re_01, Re_02, Re_03 = PrimaryFilter(float(FNum), float(SNum), float(TNum), float(FtNum))
 SecondHighest, Re_11, Re_22 = SecondaryFilter(Re_01, Re_02, Re_03)
 ThirdHighest, LowestOutput = TertiaryFilter(Re_11, Re_22)
 
+#Print Statement
 print(f"\n\33[91m{IntorFlt(HighestOutput):,}\33[0m, \33[92m{IntorFlt(SecondHighest):,}\33[0m, \33[93m{IntorFlt(ThirdHighest):,}\33[0m, \33[94m{IntorFlt(LowestOutput):,}\33[0m".center(24," "))
