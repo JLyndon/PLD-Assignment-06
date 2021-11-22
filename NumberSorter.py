@@ -2,33 +2,39 @@
 # Create a program that ask 4 numbers. 
 # Print the 4 numbers from highest to lowest using only if-else statement.
 
+import time
+
+
 def Usr_Input(): #Input Function
     while True:
-        while True:
-            Num_01 = input("\nEnter \x1B[1mfirst\x1B[0m number: ")
-            Ev_Num_01= CommaReader_Single(Num_01)
-            if (SecuringNegativ(Ev_Num_01)) == True: #Initial Screening
-                while True:
-                    Num_02 = input("\nEnter \x1B[1msecond\x1B[0m number: ")
-                    Ev_Num_02= CommaReader_Single(Num_02)
-                    if (SecuringNegativ(Ev_Num_02)) == True:
-                        while True:
-                            Num_03 = input("\nEnter \x1B[1mthird\x1B[0m number: ")
-                            Ev_Num_03= CommaReader_Single(Num_03)
-                            if (SecuringNegativ(Ev_Num_03)) == True:
-                                while True:
-                                    Num_04 = input("\nEnter \x1B[1mfourth\x1B[0m number: ")
-                                    Ev_Num_04= CommaReader_Single(Num_04)
-                                    if (SecuringNegativ(Ev_Num_04)) == True:
-                                        return Ev_Num_01, Ev_Num_02, Ev_Num_03, Ev_Num_04
-                                    else:
-                                        ValidationState(Ev_Num_04) #Validation/Input Remarks - Statements
-                            else:
-                                ValidationState(Ev_Num_03)
-                    else:   
-                        ValidationState(Ev_Num_02)         
-            else:
-                ValidationState(Ev_Num_01) 
+        Num_01 = input("\n\n\33[94mStart:\33[0m\nEnter \x1B[1mfirst\x1B[0m number: ")
+        Ev_Num_01= CommaReader_Single(Num_01)
+        if (SecuringNegativ(Ev_Num_01)) == True: #Initial Screening
+            DecorativeProgress(5)
+            while True:
+                Num_02 = input("\n\nEnter \x1B[1msecond\x1B[0m number: ")
+                Ev_Num_02= CommaReader_Single(Num_02)
+                if (SecuringNegativ(Ev_Num_02)) == True:
+                    DecorativeProgress(10)
+                    while True:
+                        Num_03 = input("\n\nEnter \x1B[1mthird\x1B[0m number: ")
+                        Ev_Num_03= CommaReader_Single(Num_03)
+                        if (SecuringNegativ(Ev_Num_03)) == True:
+                            DecorativeProgress(17)
+                            while True:
+                                Num_04 = input("\n\nEnter \x1B[1mfourth\x1B[0m number: ")
+                                Ev_Num_04= CommaReader_Single(Num_04)
+                                if (SecuringNegativ(Ev_Num_04)) == True:
+                                    DecorativeProgress(24)
+                                    return Ev_Num_01, Ev_Num_02, Ev_Num_03, Ev_Num_04
+                                else:
+                                    ValidationState(Ev_Num_04) #Validation/Input Remarks - Statements
+                        else:
+                            ValidationState(Ev_Num_03)
+                else:   
+                    ValidationState(Ev_Num_02)         
+        else:
+            ValidationState(Ev_Num_01) 
 
 def CommaReader_Single(StringVal): #Duplicate of CommaReader code block from previous exer.
     if "," in StringVal:
@@ -39,18 +45,18 @@ def CommaReader_Single(StringVal): #Duplicate of CommaReader code block from pre
 
 def ValidationState(StrEvaluee): #Second Layer of Validation - Displays a Reminder if the input is invalid.
     if StrEvaluee.isalpha() == True:
-        return print("Input must be a number!")
+        return print("\33[91mInput must be a number!\33[0m")
     elif (StrEvaluee.isspace()) or (StrEvaluee == (None or "")) == True:
-        return print("This field must have an input to proceed.")
+        return print("\33[91mThis field must have an input to proceed.\33[0m")
     elif StrEvaluee.replace(".","",1).replace("-","",1).isalnum() == True:
         if StrEvaluee[0] == "-":
-            return print("Input must be all numeric character!")
+            return print("\33[91mInput must be all numeric character!\33[0m")
         else:
-            print("Signs must be on the left side!")
+            print("\33[91mSigns must be on the left side!\33[0m")
     elif " " in StrEvaluee:
-        print("Inputs must not have a space!")
+        print("\33[91mInputs must not have a space!\33[0m")
     else:
-        print("Please enter a valid number.")
+        print("\33[91mPlease enter a valid number.\33[0m")
 
 def PrimaryFilter(firstNum, secondNum, thirdNum, fourthNum): #Function for determining the highest value.
     if (firstNum >= secondNum) and (firstNum >= thirdNum) and (firstNum >= fourthNum):
@@ -133,11 +139,74 @@ def SecuringNegativ(ConflictStr): #Function for Initial Screening - Checks for e
         if (DisregardListChar(DisregardNegativeDecim(Mixed_alpha)).isalpha() == True) and (DisregardListChar(DisregardNegativeDecim(Mixed_num)).isdigit() == True):
             return False # Error Fixed
 
-#Main Program
-FNum, SNum, TNum, FtNum = Usr_Input()
-HighestOutput, Re_01, Re_02, Re_03 = PrimaryFilter(float(FNum), float(SNum), float(TNum), float(FtNum))
-SecondHighest, Re_11, Re_22 = SecondaryFilter(Re_01, Re_02, Re_03)
-ThirdHighest, LowestOutput = TertiaryFilter(Re_11, Re_22)
+def DecorativeProgress(HowFar):
+    print("\n\n\33[3m\33[34mProgress Bar:\33[0m\33[0m")
+    ProgSymb = "◉"
+    for progress in range(0,25):
+        print("\33[90m━\33[0m",end="")
+        if progress == HowFar:
+            if HowFar == 5:
+                ProgressMark = "\33[3m2.5\33[0m"
+            elif HowFar == 10:
+                ProgressMark = "\33[90m━━\33[0m\33[3m5\33[0m"
+            elif HowFar == 17:
+                ProgressMark = "\33[3m7.5\33[0m"
+            elif HowFar == 24:
+                ProgressMark = "\33[3m100\33[0m"
+                ProgSymb = "\33[1m★\33[0m"
+                print(f"{ProgressMark}\33[93m{ProgSymb} \33[0m",end="")
+                break
+            print(f"{ProgressMark}\33[92m{ProgSymb} \33[0m",end="")
+    print("")
 
-#Print Statement
-print(f"\n\33[91m{IntorFlt(HighestOutput):,}\33[0m, \33[92m{IntorFlt(SecondHighest):,}\33[0m, \33[93m{IntorFlt(ThirdHighest):,}\33[0m, \33[94m{IntorFlt(LowestOutput):,}\33[0m".center(24," "))
+#Main Program
+print("\n                 Welcome to Number Sorter!\nGive me numbers, I'll sort them out for you in \33[93mdescending\33[0m order.\n\nType '\33[92mstart\33[0m' to get started.\nType '\33[91mexit\33[0m' to close the program.")
+while True:
+    Usr_Decision = input("\n> ").upper()
+    if Usr_Decision == "START":
+        while True:
+            FNum, SNum, TNum, FtNum = Usr_Input()
+            HighestOutput, Re_01, Re_02, Re_03 = PrimaryFilter(float(FNum), float(SNum), float(TNum), float(FtNum))
+            SecondHighest, Re_11, Re_22 = SecondaryFilter(Re_01, Re_02, Re_03)
+            ThirdHighest, LowestOutput = TertiaryFilter(Re_11, Re_22)
+
+            time.sleep(2)
+            #Print Statement
+            print(f"\n\nHere you go:\n\33[91m\33[1mH\33[0m\33[0m \33[90m━━━━━━━━━━━━━━>\33[0m \33[94m\33[1mL\33[0m\33[0m\n\n \33[91m{IntorFlt(HighestOutput):,}\33[0m, \33[92m{IntorFlt(SecondHighest):,}\33[0m, \33[93m{IntorFlt(ThirdHighest):,}\33[0m, \33[94m{IntorFlt(LowestOutput):,}\33[0m")
+            time.sleep(3)
+            RepeatorTerminate = input("\n\nDo you wish to sort another set?\n          \33[92mYes\33[0m or \33[91mNo\33[0m\n\n> ").upper()
+            while True:
+                if RepeatorTerminate == "YES":
+                    RepeatorTerminate = "repeat_process"
+                    break
+                elif RepeatorTerminate == "NO":
+                    RepeatorTerminate = "exit_prog"
+                    print("\n\33[3mOkay! Have a good one!\33[0m :)")
+                    break
+                else:
+                    print("\33[91mUnknown command\33[0m")
+            if RepeatorTerminate == "repeat_process":
+                continue
+            elif RepeatorTerminate == "exit_prog":
+                break
+        break
+    elif Usr_Decision == "EXIT":
+        Usr_Verify = input("\n\n\nAre you sure?\n  \33[92mYes\33[0m or \33[91mNo\33[0m\n\n> ").upper()
+        while Usr_Verify != "YES" or "NO":
+            if Usr_Verify == "YES":
+                Usr_Verify = "proceed_exit"
+                print("\n\33[3m'Til next time!\33[0m :)")
+                break
+            elif Usr_Verify == "NO":
+                Usr_Verify = "proceed_prog"
+                print("\n\33[3m I knew it!\33[0m ;)\nShall we start?")
+                print("\n\nType '\33[92mstart\33[0m' to get started.\nType '\33[91mexit\33[0m' to close the program.")
+                break
+            else:
+                print("\33[91mUnknown command\33[0m")
+        if Usr_Verify == "proceed_exit":
+            break
+        elif Usr_Verify == "proceed_prog":
+            continue
+    else:
+        print("\33[91mUnknown command\33[0m")
