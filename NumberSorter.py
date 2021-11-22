@@ -1,13 +1,14 @@
-# Program 1: Number Sorter
+import time
+
+# ---------- Context ------------
+# Program A: Number Sorter
 # Create a program that ask 4 numbers. 
 # Print the 4 numbers from highest to lowest using only if-else statement.
 
-import time
-
-
 def Usr_Input(): #Input Function
     while True:
-        Num_01 = input("\n\n\33[94mStart:\33[0m\nEnter \x1B[1mfirst\x1B[0m number: ")
+        DecorativeProgress(0)
+        Num_01 = input("\n\n\n\33[94mStart:\33[0m\nEnter \x1B[1mfirst\x1B[0m number: ")
         Ev_Num_01= CommaReader_Single(Num_01)
         if (SecuringNegativ(Ev_Num_01)) == True: #Initial Screening
             DecorativeProgress(5)
@@ -43,7 +44,7 @@ def CommaReader_Single(StringVal): #Duplicate of CommaReader code block from pre
     else:
         return StringVal
 
-def ValidationState(StrEvaluee): #Second Layer of Validation - Displays a Reminder if the input is invalid.
+def ValidationState(StrEvaluee): #Third Layer of Validation - Displays a Reminder if the input is invalid.
     if StrEvaluee.isalpha() == True:
         return print("\33[91mInput must be a number!\33[0m")
     elif (StrEvaluee.isspace()) or (StrEvaluee == (None or "")) == True:
@@ -123,8 +124,8 @@ def SecuringNegativ(ConflictStr): #Function for Initial Screening - Checks for e
                 else:
                     return False
 
-    if (DisregardListChar(DisregardNegativeDecim(ConflictStr)).isdigit()) == True:
-        return True
+    if (DisregardListChar(DisregardNegativeDecim(ConflictStr)).isdigit()) == True: # Second layer of Validation -
+        return True                                           #Are those inputs valid without negative sign and decimal pt?
     elif DisregardNegativeDecim(ConflictStr).isalpha() == True:
         return False
     elif DisregardNegativeDecim(ConflictStr).isalnum() == True:
@@ -137,15 +138,17 @@ def SecuringNegativ(ConflictStr): #Function for Initial Screening - Checks for e
                 Mixed_num, Mixed_alpha = ReadyConflict.split("s",1)
                 break
         if (DisregardListChar(DisregardNegativeDecim(Mixed_alpha)).isalpha() == True) and (DisregardListChar(DisregardNegativeDecim(Mixed_num)).isdigit() == True):
-            return False # Error Fixed
+            return False # Error: Disregards Third layer Validation (Fixed)
 
-def DecorativeProgress(HowFar):
+def DecorativeProgress(HowFar): #Decor - prints a progress bar.
     print("\n\n\33[3m\33[34mProgress Bar:\33[0m\33[0m")
     ProgSymb = "◉"
     for progress in range(0,25):
         print("\33[90m━\33[0m",end="")
         if progress == HowFar:
-            if HowFar == 5:
+            if HowFar == 0:
+                ProgressMark = ""
+            elif HowFar == 5:
                 ProgressMark = "\33[3m2.5\33[0m"
             elif HowFar == 10:
                 ProgressMark = "\33[90m━━\33[0m\33[3m5\33[0m"
@@ -162,7 +165,7 @@ def DecorativeProgress(HowFar):
 #Main Program
 print("\n                 Welcome to Number Sorter!\nGive me numbers, I'll sort them out for you in \33[93mdescending\33[0m order.\n\nType '\33[92mstart\33[0m' to get started.\nType '\33[91mexit\33[0m' to close the program.")
 while True:
-    Usr_Decision = input("\n> ").upper()
+    Usr_Decision = input("\n> ").upper() #Usr Command - tells whether to proceed or not.
     if Usr_Decision == "START":
         while True:
             FNum, SNum, TNum, FtNum = Usr_Input()
@@ -172,10 +175,10 @@ while True:
 
             time.sleep(2)
             #Print Statement
-            print(f"\n\nHere you go:\n\33[91m\33[1mH\33[0m\33[0m \33[90m━━━━━━━━━━━━━━>\33[0m \33[94m\33[1mL\33[0m\33[0m\n\n \33[91m{IntorFlt(HighestOutput):,}\33[0m, \33[92m{IntorFlt(SecondHighest):,}\33[0m, \33[93m{IntorFlt(ThirdHighest):,}\33[0m, \33[94m{IntorFlt(LowestOutput):,}\33[0m")
+            print(f"\n\nHere you go:\n\33[91m\33[1mH\33[0m\33[0m \33[90m━━━━━━━━━━━━━━>\33[0m \33[94m\33[1mL\33[0m\33[0m\n\n \33[91m{IntorFlt(HighestOutput):,}\33[0m, \33[92m{IntorFlt(SecondHighest):,}\33[0m, \33[33m{IntorFlt(ThirdHighest):,}\33[0m, \33[94m{IntorFlt(LowestOutput):,}\33[0m")
             time.sleep(3)
-            RepeatorTerminate = input("\n\nDo you wish to sort another set?\n          \33[92mYes\33[0m or \33[91mNo\33[0m\n\n> ").upper()
-            while True:
+            RepeatorTerminate = input("\n\nDo you wish to sort another set?\n          \33[92mYes\33[0m or \33[91mNo\33[0m\n\n> ").upper()  #Prompts Usr to choose an action (Repetition or Termination)
+            while True: #Usr Command - Verify Action 
                 if RepeatorTerminate == "YES":
                     RepeatorTerminate = "repeat_process"
                     break
@@ -190,9 +193,9 @@ while True:
             elif RepeatorTerminate == "exit_prog":
                 break
         break
-    elif Usr_Decision == "EXIT":
+    elif Usr_Decision == "EXIT": 
         Usr_Verify = input("\n\n\nAre you sure?\n  \33[92mYes\33[0m or \33[91mNo\33[0m\n\n> ").upper()
-        while Usr_Verify != "YES" or "NO":
+        while Usr_Verify != "YES" or "NO": #Usr Command - Verify Leave
             if Usr_Verify == "YES":
                 Usr_Verify = "proceed_exit"
                 print("\n\33[3m'Til next time!\33[0m :)")
