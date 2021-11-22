@@ -1,4 +1,5 @@
 import random
+import time
 
 # --------------- Context --------------------
 # Program B: Addition Quiz
@@ -73,30 +74,40 @@ def QuizQuest(Chosen_Difficulty):
             if Question == "correct":
                 Usr_Score += 1
             else:
+                print("Incorrect!")
                 None
         elif Item_Num > 1:
             Question_ = RandNumPickerBegin(1, Chosen_Difficulty)
             if Question_ == "correct":
                 Usr_Score += 1
             else:
+                print("Incorrect!")
                 None
-    print(f"\nYour score: {Usr_Score}/10")
+    print(f"\nYou got {Usr_Score} out of 10 equations right.")
 
 def DifficultySelection(DifficOfChoice):
-    if DifficOfChoice == "1" or "normal":
+    if (DifficOfChoice == "normal") or (DifficOfChoice == "1"):
         print("\n\n                    \33[100m NORMAL DIFFICULTY \33[0m")
         print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n".center(60, " "))
         return QuizQuest('normal')
-    elif DifficOfChoice == "2" or "veteran":
+    elif (DifficOfChoice == "veteran") or (DifficOfChoice == "2"):
         print("\n\n                  \33[44m VETERAN DIFFICULTY \33[0m")
         print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n".center(60, " "))
         return QuizQuest('veteran')
-    elif DifficOfChoice == "3" or "intermediate":
+    elif (DifficOfChoice == "intermediate") or (DifficOfChoice == "3"):
         print("\n\n               \33[41m INTERMEDIATE DIFFICULTY \33[0m")
         print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n".center(60, " "))
         return QuizQuest('intermediate')
     else:
         return print("\33[91mUnknown Difficulty\33[0m")
+
+def DifficultyComment(RandomDiffic):
+    if RandomDiffic == "normal":
+        return print("\n\n\33[92mLucky you!\33[0m Answer in:")
+    elif RandomDiffic == "veteran":
+        return print("\n\n\33[94mGood luck!\33[0m Answer in:")
+    elif RandomDiffic == "intermediate":
+        return print("\n\n\33[91mOho. \33[0mBrace yourself as you will answer in:")
 
 def Decor_MonsterFace():
     output = ""
@@ -114,23 +125,31 @@ print("\n       Welcome to \33[41m\33[1m ADD-trocious Monster's \33[0m\33[100m\3
 print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n".center(60, " "))
 Decor_MonsterFace()
 print("Do you think you're brave enough to take the test?".center(60, " "))
+print("\33[92mYes\33[0m, \33[91mNo\33[0m or.. \33[94m\33[1mRUN?!\33[0m".center(85, " "))
 while True:
     Usr_Decision = input("\n> ").lower()
-    if Usr_Decision == "yes":
-        print("\n\nVery well.. \n\nChoose your difficulty:\nType '1' or 'normal' for normal difficulty.\nType '2' or 'veteran' for veteran difficulty.\nType '3' or 'intermediate' for intermediate difficulty.")
+    if Usr_Decision.replace("!","").replace("?","") == "yes":
+        print("\n\n\33[3mVery well.. \33[0m\n\nChoose your difficulty:\nType '\33[92m1\33[0m' or '\33[92mnormal\33[0m' for normal difficulty.\nType '\33[94m2\33[0m' or '\33[94mveteran\33[0m' for veteran difficulty.\nType '\33[91m3\33[0m' or '\33[91mintermediate\33[0m' for intermediate difficulty.")
         while True:
             ChoosingDiffi = input("\n\n> ").lower()
             DifficultySelection(ChoosingDiffi)
             break
         break
-    elif Usr_Decision == "run":
-        print("\n\nThere's no escape! You have to give me an answer!\n\n As punishment, I'll randomly choose the difficulty of your trial.")
-        Difficulties = ["normal", "veteran", "intermediate"]
-        RandDiff = random.choice(Difficulties)
-        DifficultySelection(RandDiff)
+    elif Usr_Decision.replace("!","").replace("?","") == "run":
+        print("\n\n\33[3m\33[91mOh no you wont..\33[0m\33[3m\n\nThere's no escape! You have to give me an answer!\33[0m")
+        time.sleep(1.5)
+        print("\nAs punishment, I'll \33[91m\33[1mrandomly\33[0m choose the difficulty of your trial.")
+        time.sleep(1.3)
+        RandomDifficulty = random.choice(["veteran", "normal", "intermediate"])
+        DifficultyComment(RandomDifficulty)
+        time.sleep(1.3)
+        DifficultySelection(RandomDifficulty)
         break
-    elif Usr_Decision == "no":
-        print("Come whenever you're ready!")
+    elif Usr_Decision.replace("!","").replace("?","") == "no":
+        print("\n\33[3mCome whenever you're ready!\33[0m")
+        break
+    elif Usr_Decision.replace("!","").replace("?","") == "maybe":
+        print("\n\33[3mMake up your mind. Come whenever you're ready!\33[0m")
         break
     else:
         print("\33[91mUnknown command\33[0m")
