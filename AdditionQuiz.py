@@ -8,14 +8,14 @@ import time
 # The program will ask the user 10 addition operation
 # Display the result summary of the 10 operations (ex 9/10)
 
-def RandNumPickerBegin(Set_Item, Difficulty, Number_Itm):
+def RandNumPickerBegin(Set_Item, Difficulty, Number_Itm): #Function for Formulation of Addition Questions
     if Set_Item == 0:
-        randNum_01, randNum_02 = Randomize(Difficulty)
+        randNum_01, randNum_02 = Randomize(Difficulty)            #Always start with "What is ___" for naturality
         print(f"\n\n{Number_Itm}.) What is \33[92m{randNum_01}\33[0m + \33[92m{randNum_02}\33[0m = ____ ?")
         Usr_Answer_0 = input("\n\33[1m\33[3m\33[94mYour answer: \33[0m")
         Item_Result_0 = CheckingAns(str(Usr_Answer_0), str(randNum_01), str(randNum_02))
         return Item_Result_0
-    elif Set_Item == 1:
+    elif Set_Item == 1:                                            #Random prompts for Addition Questions
         QuestStatement = ["How about ", "Try ", "What? Try this instead ", "Hmm. ", "This one: ", "Solve ", "Compute for "]
         randNum_11, randNum_22 = Randomize(Difficulty)
         print(f"\n\n{Number_Itm}.) {random.choice(QuestStatement)}\33[92m{randNum_11}\33[0m + \33[92m{randNum_22}\33[0m = ____ ?")
@@ -23,7 +23,7 @@ def RandNumPickerBegin(Set_Item, Difficulty, Number_Itm):
         Item_Result_1 = CheckingAns(str(Usr_Answer_1), str(randNum_11), str(randNum_22))
         return Item_Result_1
 
-def Randomize(Set_Difficulty):
+def Randomize(Set_Difficulty): # Randomizer - Digit Generator Function
     if Set_Difficulty == "normal":
         random_01 = random.randint(0,99)
         random_02 = random.randint(0,99)
@@ -41,7 +41,7 @@ def Randomize(Set_Difficulty):
         rand_22 = round(random_22, 4) 
         return rand_11, rand_22
 
-def CheckingAns(Answer, FirstRandom, SecondRandom):
+def CheckingAns(Answer, FirstRandom, SecondRandom): # Asnwer Checker Function - returns 'correct,' 'wrong' and equivalent strings
     if (Answer == None) or (Answer == "") or (Answer.isspace() == True):
         return "wrong", "noinput"
     else:
@@ -66,8 +66,8 @@ def CheckingAns(Answer, FirstRandom, SecondRandom):
         else:
             return "wrong", "invalid"
 
-def QuizQuest(Chosen_Difficulty):
-    global Usr_Score
+def QuizQuest(Chosen_Difficulty): # After Checking, Inputs and Results will be reevaluated and interpreted
+    global Usr_Score                # thru this function
     Usr_Score = 0
     Item_Num = 0
     while Item_Num < 10:
@@ -96,6 +96,7 @@ def QuizQuest(Chosen_Difficulty):
                     print("\n\33[91mIncorrect! Invalid answer format.\33[0m")
                 else:
                     print(f"\n\33[91mIncorrect!\33[0m The correct answer is \33[93m{Total_}\33[0m")
+    #Final Score Interpretations
     if Usr_Score <= 4:
         print(f"\n\n\n                 You scored \33[91m{Usr_Score}\33[0m out of 10.")
         print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
@@ -108,10 +109,10 @@ def QuizQuest(Chosen_Difficulty):
     elif Usr_Score == 10:
         print(f"\n\n\n              You scored \33[94m{Usr_Score}\33[0m out of 10 \33[93m\33[1m  ★ ★ ★\33[0m")
         print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
-    
+    # Decor - Further interpret the Results
     UsrsFate(Usr_Score)
 
-def DifficultySelection(DifficOfChoice):
+def DifficultySelection(DifficOfChoice): #Function for Displaying Quiz Difficulty
     if (DifficOfChoice == "normal") or (DifficOfChoice == "1"):
         print("\n\n\n                    \33[100m NORMAL DIFFICULTY \33[0m")
         print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
@@ -134,7 +135,7 @@ def DifficultySelection(DifficOfChoice):
         print("\33[91mUnknown Difficulty\33[0m")
         return "notvalid"
 
-def DifficultyComment(RandomDiffic):
+def DifficultyComment(RandomDiffic): # Function for ADD-trocious Monter's commentaries 
     if RandomDiffic == "normal":
         return print("\n\n\n\33[92mLucky you!\33[0m Answer in:")
     elif RandomDiffic == "veteran":
@@ -142,9 +143,9 @@ def DifficultyComment(RandomDiffic):
     elif RandomDiffic == "intermediate":
         return print("\n\n\n\33[91mOho. \33[0mBrace yourself as you will answer in:")
 
-def Decor_MonsterFace(ProgPhase):
+def Decor_MonsterFace(ProgPhase): # Decor - Function for Monter Pattern display
     output = ""
-    if ProgPhase == "start":
+    if ProgPhase == "start": # Displays Angry version/pattern
         for row in range(0, 11):
             for column in range(0, 36):
                 if (column == 20 and (row == 0 or row == 1)) or (column == 21 and (row >= 2 and row <= 5 or row == 10)) or (column == 22 and (row >= 3 and row <= 5 or row == 9)) or (column == 23 and (row >= 3 and row <= 5 or row == 8)) or (column == 24 and (row >= 3 and row <= 5 or row == 9)) or (column == 25 and (row >= 4 and row <= 5 or row == 10)) or (column == 26 and row == 9) or (column == 27 and row == 8) or (column == 28 and row == 9) or (column == 29 and (row >= 4 and row <= 5  or row == 10)) or (column == 30 and (row >= 3 and row <= 5 or row == 9)) or (column == 31 and (row >= 3 and row <= 5 or row == 8)) or (column == 32 and (row >= 3 and row <= 5 or row == 9)) or (column == 33 and (row >= 2 and row <= 5 or row == 10)) or (column == 34 and (row == 0 or row == 1)):
@@ -153,7 +154,7 @@ def Decor_MonsterFace(ProgPhase):
                     output = output+" "
             output = output + "\n"
         return print(output)
-    elif ProgPhase == "tamed":
+    elif ProgPhase == "tamed": #Displays Friendly version/pattern
         for rw in range (0, 11):
             for col in range(0,36):
                 if (col == 20 and rw == 7) or (col == 21 and (rw == 2 or rw == 8)) or (col == 22 and (rw >= 2 and rw <= 3 or rw == 9)) or (col == 23 and (rw >= 2 and rw <= 3 or rw == 8)) or (col == 24 and (rw == 2 or rw == 7)) or (col == 25 and  rw == 8) or (col == 26 and rw == 9) or (col == 27 and rw == 8) or (col == 28 and (rw == 2 or rw == 7)) or (col == 29 and (rw >= 2 and rw <= 3  or rw == 8)) or (col == 30 and (rw >= 2 and rw <= 3 or rw == 9)) or (col == 31 and (rw == 2 or rw == 8)) or (col == 32 and rw == 7):
@@ -163,7 +164,7 @@ def Decor_MonsterFace(ProgPhase):
             output = output + "\n"
         return print(output)
 
-def Introduction():
+def Introduction(): #Prompts Name input
     global Usr_Name
     print("\nPsst..")
     time.sleep(2)
@@ -185,7 +186,7 @@ def Introduction():
                 print("\n\nOh..")
                 return print(f"\nHello, \33[93m\33[1m{Usr_Name}\33[0m")
 
-def UsrsFate(TestScore):
+def UsrsFate(TestScore): # Selection for TestScores
     if TestScore <= 4:
         print(f"\33[91mHow unfortunate,\33[93m Lyndon\33[0m\n".center(68, " "))
         Decor_MonsterFace("start")
@@ -208,7 +209,7 @@ Decor_MonsterFace("start")
 print("Do you think you're brave enough to take the test?".center(60, " "))
 print("\33[92m\33[1mYes\33[0m, \33[1m\33[91mNo\33[0m or.. \33[93mmaybe\33[0m \33[94m\33[1mRUN?!\33[0m".center(105, " "))
 while True:
-    Usr_Decision = input("\n> ").lower()
+    Usr_Decision = input("\n> ").lower() # Users will get redirected into any of the 4 paths based on input.
     if Usr_Decision.replace("!","").replace("?","") == "yes":
         print("\n\n\33[3m\33[92mVery well.. \33[0m")
         time.sleep(1.7)
@@ -221,7 +222,7 @@ while True:
             else:
                 break
         break
-    elif Usr_Decision.replace("!","").replace("?","") == "run":
+    elif Usr_Decision.replace("!","").replace("?","") == "run": #If users decided to choose "run," the program will force them to answer the quiz.
         print("\n\n\33[3m\33[91mOh no you won't..\33[0m\33[3m\n\nThere's no escape! You have to give me an answer!\33[0m")
         time.sleep(1.7)
         print("\nAs punishment for running away, I'll \33[91m\33[1mrandomly\33[0m select the difficulty of your trial.\n\33[40m   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\33[0m")
@@ -231,10 +232,10 @@ while True:
         time.sleep(1.3)
         DifficultySelection(RandomDifficulty)
         break
-    elif Usr_Decision.replace("!","").replace("?","") == "no":
+    elif Usr_Decision.replace("!","").replace("?","") == "no": #If they choose "no," the program will have no follow-ups.
         print("\n\33[3mCome whenever you're ready!\33[0m")
         break
-    elif Usr_Decision.replace("!","").replace("?","") == "maybe":
+    elif Usr_Decision.replace("!","").replace("?","") == "maybe": #Same path as "no"
         print("\n\33[3mMake up your mind. Come whenever you're ready!\33[0m")
         break
     else:
