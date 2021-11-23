@@ -8,17 +8,17 @@ import time
 # The program will ask the user 10 addition operation
 # Display the result summary of the 10 operations (ex 9/10)
 
-def RandNumPickerBegin(Set_Item, Difficulty):
+def RandNumPickerBegin(Set_Item, Difficulty, Number_Itm):
     if Set_Item == 0:
         randNum_01, randNum_02 = Randomize(Difficulty)
-        print(f"\n\nWhat is \33[92m{randNum_01}\33[0m + \33[92m{randNum_02}\33[0m = ____ ?")
+        print(f"\n\n{Number_Itm}.) What is \33[92m{randNum_01}\33[0m + \33[92m{randNum_02}\33[0m = ____ ?")
         Usr_Answer_0 = input("\n\33[1m\33[3m\33[94mYour answer: \33[0m")
         Item_Result_0 = CheckingAns(str(Usr_Answer_0), str(randNum_01), str(randNum_02))
         return Item_Result_0
     elif Set_Item == 1:
         QuestStatement = ["How about ", "Try ", "What? Try this instead ", "Hmm. ", "This one: ", "Solve ", "Compute for "]
         randNum_11, randNum_22 = Randomize(Difficulty)
-        print(f"\n\n{random.choice(QuestStatement)}\33[92m{randNum_11}\33[0m + \33[92m{randNum_22}\33[0m = ____ ?")
+        print(f"\n\n{Number_Itm}.) {random.choice(QuestStatement)}\33[92m{randNum_11}\33[0m + \33[92m{randNum_22}\33[0m = ____ ?")
         Usr_Answer_1 = input("\n\33[1m\33[3m\33[94mYour answer: \33[0m")
         Item_Result_1 = CheckingAns(str(Usr_Answer_1), str(randNum_11), str(randNum_22))
         return Item_Result_1
@@ -67,12 +67,13 @@ def CheckingAns(Answer, FirstRandom, SecondRandom):
             return "wrong", "invalid"
 
 def QuizQuest(Chosen_Difficulty):
+    global Usr_Score
     Usr_Score = 0
     Item_Num = 0
     while Item_Num < 10:
         Item_Num += 1
         if Item_Num == 1:
-            Question, Total = RandNumPickerBegin(0, Chosen_Difficulty)
+            Question, Total = RandNumPickerBegin(0, Chosen_Difficulty, Item_Num)
             if Question == "correct":
                 print("\n\33[92mCorrect!\33[0m")
                 Usr_Score += 1
@@ -84,7 +85,7 @@ def QuizQuest(Chosen_Difficulty):
                 else:
                     print(f"\n\33[91mIncorrect!\33[0m The correct answer is \33[93m{Total}\33[0m")
         elif Item_Num > 1:
-            Question_, Total_ = RandNumPickerBegin(1, Chosen_Difficulty)
+            Question_, Total_ = RandNumPickerBegin(1, Chosen_Difficulty, Item_Num)
             if Question_ == "correct":
                 print("\n\33[92mCorrect!\33[0m")
                 Usr_Score += 1
@@ -95,21 +96,39 @@ def QuizQuest(Chosen_Difficulty):
                     print("\n\33[91mIncorrect! Invalid answer format.\33[0m")
                 else:
                     print(f"\n\33[91mIncorrect!\33[0m The correct answer is \33[93m{Total_}\33[0m")
-
-    print(f"\nYou got {Usr_Score} out of 10 equations right.")
+    if Usr_Score <= 4:
+        print(f"\n\n\n                 You scored \33[91m{Usr_Score}\33[0m out of 10.")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+    elif Usr_Score <= 7:
+        print(f"\n\n\n                You scored \33[93m{Usr_Score}\33[0m out of 10 \33[93m\33[1m ★\33[0m")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+    elif Usr_Score <= 9:
+        print(f"\n\n\n               You scored \33[92m{Usr_Score}\33[0m out of 10 \33[93m\33[1m ★ ★\33[0m")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+    elif Usr_Score == 10:
+        print(f"\n\n\n              You scored \33[94m{Usr_Score}\33[0m out of 10 \33[93m\33[1m  ★ ★ ★\33[0m")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+    
+    UsrsFate(Usr_Score)
 
 def DifficultySelection(DifficOfChoice):
     if (DifficOfChoice == "normal") or (DifficOfChoice == "1"):
         print("\n\n\n                    \33[100m NORMAL DIFFICULTY \33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n".center(60, " "))
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print("  For normal level, solve for the sum of \33[93mwhole\33[0m values".center(66, " "))
         return QuizQuest('normal')
     elif (DifficOfChoice == "veteran") or (DifficOfChoice == "2"):
         print("\n\n\n                  \33[44m VETERAN DIFFICULTY \33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n".center(60, " "))
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print("  For veteran level, solve for the sum of values with".center(60, " "))
+        print("\33[94m(2)\33[0m decimal places. \n".center(67, " "))
+        print()
         return QuizQuest('veteran')
     elif (DifficOfChoice == "intermediate") or (DifficOfChoice == "3"):
         print("\n\n\n               \33[41m INTERMEDIATE DIFFICULTY \33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n".center(60, " "))
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print(" For intermediate level, solve for the sum of values with".center(60, " "))
+        print("\33[91m(4)\33[0m decimal places. \n".center(66, " "))
         return QuizQuest('intermediate')
     else:
         print("\33[91mUnknown Difficulty\33[0m")
@@ -123,23 +142,71 @@ def DifficultyComment(RandomDiffic):
     elif RandomDiffic == "intermediate":
         return print("\n\n\n\33[91mOho. \33[0mBrace yourself as you will answer in:")
 
-def Decor_MonsterFace():
+def Decor_MonsterFace(ProgPhase):
     output = ""
-    for row in range(0, 11):
-        for column in range(0, 36):
-            if (column == 20 and (row == 0 or row == 1)) or (column == 21 and (row >= 2 and row <= 5 or row == 10)) or (column == 22 and (row >= 3 and row <= 5 or row == 9)) or (column == 23 and (row >= 3 and row <= 5 or row == 8)) or (column == 24 and (row >= 3 and row <= 5 or row == 9)) or (column == 25 and (row >= 4 and row <= 5 or row == 10)) or (column == 26 and row == 9) or (column == 27 and row == 8) or (column == 28 and row == 9) or (column == 29 and (row >= 4 and row <= 5  or row == 10)) or (column == 30 and (row >= 3 and row <= 5 or row == 9)) or (column == 31 and (row >= 3 and row <= 5 or row == 8)) or (column == 32 and (row >= 3 and row <= 5 or row == 9)) or (column == 33 and (row >= 2 and row <= 5 or row == 10)) or (column == 34 and (row == 0 or row == 1)):
-                output = output+"\33[91m▉\33[0m"
+    if ProgPhase == "start":
+        for row in range(0, 11):
+            for column in range(0, 36):
+                if (column == 20 and (row == 0 or row == 1)) or (column == 21 and (row >= 2 and row <= 5 or row == 10)) or (column == 22 and (row >= 3 and row <= 5 or row == 9)) or (column == 23 and (row >= 3 and row <= 5 or row == 8)) or (column == 24 and (row >= 3 and row <= 5 or row == 9)) or (column == 25 and (row >= 4 and row <= 5 or row == 10)) or (column == 26 and row == 9) or (column == 27 and row == 8) or (column == 28 and row == 9) or (column == 29 and (row >= 4 and row <= 5  or row == 10)) or (column == 30 and (row >= 3 and row <= 5 or row == 9)) or (column == 31 and (row >= 3 and row <= 5 or row == 8)) or (column == 32 and (row >= 3 and row <= 5 or row == 9)) or (column == 33 and (row >= 2 and row <= 5 or row == 10)) or (column == 34 and (row == 0 or row == 1)):
+                    output = output+"\33[91m▉\33[0m"
+                else:
+                    output = output+" "
+            output = output + "\n"
+        return print(output)
+    elif ProgPhase == "tamed":
+        for rw in range (0, 11):
+            for col in range(0,36):
+                if (col == 20 and rw == 7) or (col == 21 and (rw == 2 or rw == 8)) or (col == 22 and (rw >= 2 and rw <= 3 or rw == 9)) or (col == 23 and (rw >= 2 and rw <= 3 or rw == 8)) or (col == 24 and (rw == 2 or rw == 7)) or (col == 25 and  rw == 8) or (col == 26 and rw == 9) or (col == 27 and rw == 8) or (col == 28 and (rw == 2 or rw == 7)) or (col == 29 and (rw >= 2 and rw <= 3  or rw == 8)) or (col == 30 and (rw >= 2 and rw <= 3 or rw == 9)) or (col == 31 and (rw == 2 or rw == 8)) or (col == 32 and rw == 7):
+                    output = output+"\33[94m▉\33[0m"
+                else:
+                    output = output+" "
+            output = output + "\n"
+        return print(output)
+
+def Introduction():
+    global Usr_Name
+    print("\nPsst..")
+    time.sleep(2)
+    print("\n\nPssssssst!\n\n")
+    time.sleep(1.2)
+    print("  \33[91mWho are you?\33[0m\nWhat's your name?")
+    while True:
+        Usr_Name = input("\n\n> ")
+        if (Usr_Name.isspace() == True) or (Usr_Name == ""):
+            print("Please enter a name.")
+        elif (Usr_Name != "") or (Usr_Name != None) or (Usr_Name.isspace() == False):
+            if " " in Usr_Name:
+                print("Name must be at least 3 characters long and must not contain a space.")
+            elif (len(Usr_Name)) <= 2: 
+                print("Name must be at least 3 characters long.")
+            elif (len(Usr_Name)) > 10:
+                print("Name should be a maximum of 10 characters.")
             else:
-                output = output+" "
-        output = output + "\n"
-    return print(output)
+                print("\n\nOh..")
+                return print(f"\nHello, \33[93m\33[1m{Usr_Name}\33[0m")
+
+def UsrsFate(TestScore):
+    if TestScore <= 4:
+        print(f"\33[91mHow unfortunate,\33[93m Lyndon\33[0m\n".center(68, " "))
+        Decor_MonsterFace("start")
+        print("\33[91m*gulp*\33[0m".center(65, " "))
+    elif TestScore <= 7:
+        print(f"\33[93m{Usr_Name}\33[0m, you passed! Feel free to leave/escape.".center(70, " "))
+    elif TestScore <= 9:
+        print("Congratulations! You're almost there, keep it up!".center(62, " "))
+    elif TestScore == 10:
+        Decor_MonsterFace("tamed")
+        print("\33[93m\33[1mWonderful!!\33[0m\n".center(70, " ")) 
+        print("With your intelligence, you tamed the \33[41m\33[1m ADD-trocious Monster's \33[0m!".center(80, " "))
 
 #Main Program
+Introduction()
+time.sleep(1.7)
 print("\n       Welcome to \33[41m\33[1m ADD-trocious Monster's \33[0m\33[100m\33[1m QUIZ \33[0m!")
 print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n".center(60, " "))
-Decor_MonsterFace()
+Decor_MonsterFace("start")
 print("Do you think you're brave enough to take the test?".center(60, " "))
-print("\33[92mYes\33[0m, \33[91mNo\33[0m or.. \33[94m\33[1mRUN?!\33[0m".center(85, " "))
+print("\33[92m\33[1mYes\33[0m, \33[1m\33[91mNo\33[0m or.. \33[93mmaybe\33[0m \33[94m\33[1mRUN?!\33[0m".center(105, " "))
 while True:
     Usr_Decision = input("\n> ").lower()
     if Usr_Decision.replace("!","").replace("?","") == "yes":
@@ -157,7 +224,7 @@ while True:
     elif Usr_Decision.replace("!","").replace("?","") == "run":
         print("\n\n\33[3m\33[91mOh no you won't..\33[0m\33[3m\n\nThere's no escape! You have to give me an answer!\33[0m")
         time.sleep(1.7)
-        print("\nAs punishment for running away, I'll \33[91m\33[1mrandomly\33[0m select the difficulty of your trial.\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        print("\nAs punishment for running away, I'll \33[91m\33[1mrandomly\33[0m select the difficulty of your trial.\n\33[40m   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\33[0m")
         time.sleep(1.9)
         RandomDifficulty = random.choice(["veteran", "normal", "intermediate"])
         DifficultyComment(RandomDifficulty)
@@ -172,4 +239,3 @@ while True:
         break
     else:
         print("\33[91mUnknown command\33[0m")
-        
