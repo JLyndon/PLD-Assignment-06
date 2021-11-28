@@ -28,18 +28,17 @@ def Randomize(Set_Difficulty): # Randomizer - Digit Generator Function
         random_01 = random.randint(0,99)
         random_02 = random.randint(0,99)
         return random_01, random_02 
-    elif Set_Difficulty == "veteran":
+    else:
         random_11 = random.uniform(0,99)
         random_22 = random.uniform(0,99)
-        rand_11 = round(random_11, 2)
-        rand_22 = round(random_22, 2) 
-        return rand_11, rand_22
-    elif Set_Difficulty == "intermediate":
-        random_11 = random.uniform(0,99)
-        random_22 = random.uniform(0,99)
-        rand_11 = round(random_11, 4)
-        rand_22 = round(random_22, 4) 
-        return rand_11, rand_22
+        if Set_Difficulty == "veteran":
+            rand_11 = round(random_11, 2)
+            rand_22 = round(random_22, 2) 
+            return rand_11, rand_22
+        elif Set_Difficulty == "intermediate":
+            rand_11 = round(random_11, 4)
+            rand_22 = round(random_22, 4) 
+            return rand_11, rand_22
 
 def CheckingAns(Answer, FirstRandom, SecondRandom): # Asnwer Checker Function - returns 'correct,' 'wrong' and equivalent strings
     if (Answer == None) or (Answer == "") or (Answer.isspace() == True):
