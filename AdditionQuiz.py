@@ -97,38 +97,28 @@ def QuizQuest(Chosen_Difficulty): # After Checking, Inputs and Results will be r
                     print(f"\n\33[91mIncorrect!\33[0m The correct answer is \33[93m{Total_}\33[0m")
     #Final Score Interpretations
     if Usr_Score <= 4:
-        print(f"\n\n\n                 You scored \33[91m{Usr_Score}\33[0m out of 10.")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print(f"\n\n\n                 You scored \33[91m{Usr_Score}\33[0m out of 10.\n","━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
     elif Usr_Score <= 7:
-        print(f"\n\n\n                You scored \33[93m{Usr_Score}\33[0m out of 10 \33[93m\33[1m ★\33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print(f"\n\n\n                You scored \33[93m{Usr_Score}\33[0m out of 10 \33[93m\33[1m ★\33[0m\n","━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
     elif Usr_Score <= 9:
-        print(f"\n\n\n               You scored \33[92m{Usr_Score}\33[0m out of 10 \33[93m\33[1m ★ ★\33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print(f"\n\n\n               You scored \33[92m{Usr_Score}\33[0m out of 10 \33[93m\33[1m ★ ★\33[0m\n", "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
     elif Usr_Score == 10:
-        print(f"\n\n\n              You scored \33[94m{Usr_Score}\33[0m out of 10 \33[93m\33[1m  ★ ★ ★\33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print(f"\n\n\n              You scored \33[94m{Usr_Score}\33[0m out of 10 \33[93m\33[1m  ★ ★ ★\33[0m\n","━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
     # Decor - Further interpret the Results
     UsrsFate(Usr_Score)
 
 def DifficultySelection(DifficOfChoice): #Function for Displaying Quiz Difficulty
     if (DifficOfChoice == "normal") or (DifficOfChoice == "1"):
-        print("\n\n\n                    \33[100m NORMAL DIFFICULTY \33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
-        print("  For normal level, solve for the sum of \33[93mwhole\33[0m values".center(66, " "))
+        print("\n\n\n                    \33[100m NORMAL DIFFICULTY \33[0m\n","━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print("  For normal level, solve for the sum of \33[93mwhole\33[0m values".center(67, " "))
         return QuizQuest('normal')
     elif (DifficOfChoice == "veteran") or (DifficOfChoice == "2"):
-        print("\n\n\n                  \33[44m VETERAN DIFFICULTY \33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
-        print("  For veteran level, solve for the sum of values with".center(60, " "))
-        print("\33[94m(2)\33[0m decimal places. \n".center(67, " "))
-        print()
+        print("\n\n\n                    \33[44m VETERAN DIFFICULTY \33[0m\n","━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print("  For veteran level, solve for the sum of values with".center(60, " "),"\n","\33[94m(2)\33[0m decimal places. \n".center(67, " "))
         return QuizQuest('veteran')
     elif (DifficOfChoice == "intermediate") or (DifficOfChoice == "3"):
-        print("\n\n\n               \33[41m INTERMEDIATE DIFFICULTY \33[0m")
-        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
-        print(" For intermediate level, solve for the sum of values with".center(60, " "))
-        print("\33[91m(4)\33[0m decimal places. \n".center(66, " "))
+        print("\n\n\n                  \33[41m INTERMEDIATE DIFFICULTY \33[0m\n","━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━".center(60, " "))
+        print(" For intermediate level, solve for the sum of values with".center(60, " "),"\n","\33[91m(4)\33[0m decimal places. \n".center(66, " "))
         return QuizQuest('intermediate')
     else:
         print("\33[91mUnknown Difficulty\33[0m")
@@ -187,7 +177,7 @@ def Introduction(): #Prompts Name input
 
 def UsrsFate(TestScore): # Selection for TestScores
     if TestScore <= 4:
-        print(f"\33[91mHow unfortunate,\33[93m Lyndon\33[0m\n".center(68, " "))
+        print(f"\33[91mHow unfortunate,\33[93m Lyndon\33[0m\n".center(71, " "))
         Decor_MonsterFace("start")
         print("\33[91m*gulp*\33[0m".center(65, " "))
     elif TestScore <= 7:
@@ -196,8 +186,7 @@ def UsrsFate(TestScore): # Selection for TestScores
         print("Congratulations! You're almost there, keep it up!".center(62, " "))
     elif TestScore == 10:
         Decor_MonsterFace("tamed")
-        print("\33[93m\33[1mWonderful!!\33[0m\n".center(70, " ")) 
-        print("With your intelligence, you tamed the \33[41m\33[1m ADD-trocious Monster's \33[0m!".center(80, " "))
+        print("\33[93m\33[1mWonderful!!\33[0m\n".center(70, " "),"With your intelligence, you tamed the \33[41m\33[1m ADD-trocious Monster \33[0m!".center(80, " "))
 
 #Main Program
 Introduction()
