@@ -186,7 +186,7 @@ def UsrsFate(TestScore): # Selection for TestScores
         print("Congratulations! You're almost there, keep it up!".center(62, " "))
     elif TestScore == 10:
         Decor_MonsterFace("tamed")
-        print("\33[93m\33[1mWonderful!!\33[0m\n".center(70, " "),"With your intelligence, you tamed the \33[41m\33[1m ADD-trocious Monster \33[0m!".center(80, " "))
+    print("\33[93m\33[1mWonderful!!\33[0m".center(70, " "),"\n","With your intelligence, you tamed the \33[41m\33[1m ADD-trocious Monster \33[0m!".center(70, " "))
 
 #Main Program
 Introduction()
