@@ -11,21 +11,25 @@ def Usr_Input(): #Input Function
         Num_01 = input("\n\n\n\33[94mStart:\33[0m\nEnter \x1B[1mfirst\x1B[0m number: ")
         Ev_Num_01= CommaReader_Single(Num_01)
         if (SecuringNegativ(Ev_Num_01)) == True: #Initial Screening
+            time.sleep(1.4)
             DecorativeProgress(5)
             while True:
                 Num_02 = input("\n\nEnter \x1B[1msecond\x1B[0m number: ")
                 Ev_Num_02= CommaReader_Single(Num_02)
                 if (SecuringNegativ(Ev_Num_02)) == True:
+                    time.sleep(1.4)
                     DecorativeProgress(10)
                     while True:
                         Num_03 = input("\n\nEnter \x1B[1mthird\x1B[0m number: ")
                         Ev_Num_03= CommaReader_Single(Num_03)
                         if (SecuringNegativ(Ev_Num_03)) == True:
+                            time.sleep(1.4)
                             DecorativeProgress(17)
                             while True:
                                 Num_04 = input("\n\nEnter \x1B[1mfourth\x1B[0m number: ")
                                 Ev_Num_04= CommaReader_Single(Num_04)
                                 if (SecuringNegativ(Ev_Num_04)) == True:
+                                    time.sleep(1.4)
                                     DecorativeProgress(24)
                                     return Ev_Num_01, Ev_Num_02, Ev_Num_03, Ev_Num_04
                                 else:
